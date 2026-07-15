@@ -1,4 +1,4 @@
-# 📄 Resume AI Matcher
+# 📄 Career Lens AI
 
 ![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
 ![Groq](https://img.shields.io/badge/LLM-Groq-orange.svg)
@@ -58,7 +58,7 @@ F --> H[JSON Report]
 ## 📂 Project Structure
 
 ```text
-resume-ai-matcher/
+career-lens-ai/
 ├── data/
 ├── output/
 ├── src/
@@ -75,13 +75,13 @@ resume-ai-matcher/
 ### Clone the repository
 
 ```bash
-git clone https://github.com/jrpandadev/resume-ai-matcher.git
+git clone https://github.com/jrpandadev/career-lens-ai.git
 ```
 
 ### Move into the project
 
 ```bash
-cd resume-ai-matcher
+cd career-lens-ai
 ```
 
 ### Create a virtual environment
