@@ -1,8 +1,21 @@
+# Virtual environments
 .venv/
 venv/
+
+# Environment variables
 .env
+
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+
+# IDE
+.vscode/
+.idea/
+
+# Generated output
 output/
+
+# Ignore all resumes except the demo resume
 data/resumes/*
-!data/resumes/.gitkeep
+!data/resumes/sample_resume.pdf
