@@ -1,0 +1,11 @@
+{
+    "skills":[
+        "Python",
+        "FastAPI",
+        "SQL",
+        "Docker",
+        "Machine Learning"
+    ],
+    "experience": 2,
+    "projects": 2
+}
