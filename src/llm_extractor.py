@@ -41,23 +41,48 @@ Resume Text:
 
 def extract_job(job_text: str) -> JobD:
     schema = JobD.model_json_schema()
+
     response_format = {
         "type": "json_object"
     }
+
     prompt = f"""
-You are an expert HR assistant. Extract the following information from the job description. Return ONLY valid JSON. Make sure your response is exactly valid JSON, without any explanations or surrounding text and all fields in the schema are extracted. If a field cannot be extracted, return empty string for string fields, empty list for list fields and 0 for numeric fields.
-{schema} 
-Job Description Text:
+You are an expert HR assistant.
+
+Extract the following information from the Job Description.
+
+Return ONLY valid JSON.
+
+If any field is missing:
+- use an empty list for list fields
+- use null for numeric fields
+- use an empty string for string fields
+
+JSON Schema:
+{schema}
+
+Job Description:
+
 {job_text}
 """
-    
-    messages = [{
-        "role" : "user",
-        "content" : prompt
-    }]
 
-    response = client.chat.completions.create(model=model, messages=messages, response_format=response_format)
+    messages = [
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ]
+
+    response = client.chat.completions.create(
+        model=model,
+        messages=messages,
+        response_format=response_format
+    )
+
     result = response.choices[0].message.content
+
     data = json.loads(result)
+
     job = JobD.model_validate(data)
+
     return job
