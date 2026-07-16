@@ -1,4 +1,5 @@
 import argparse
+from pathlib import Path
 
 from src.extract_text import extract_text
 from src.llm_extractor import extract_data
@@ -19,21 +20,30 @@ def main():
     args = parser.parse_args()
 
     try:
-        resume_text = extract_text(args.resume_folder)
-
-        resume = extract_data(resume_text)
+        resume_folder = Path(args.resume_folder)
 
         job = load_job_description("data/job_description.json")
 
-        match_result = compare_resume(job, resume)
+        for resume_file in resume_folder.iterdir():
 
-        score = calculate_score(match_result)
+            if resume_file.suffix.lower() not in [".pdf", ".docx"]:
+                continue
 
-        match_result.score = score
+            print(f"\nProcessing: {resume_file.name}")
 
-        generate_report(resume, match_result)
+            resume_text = extract_text(str(resume_file))
 
-        save_report(resume, job, match_result)
+            resume = extract_data(resume_text)
+
+            match_result = compare_resume(job, resume)
+
+            score = calculate_score(match_result)
+
+            match_result.score = score
+
+            generate_report(resume, match_result)
+
+            save_report(resume, job, match_result)
 
     except Exception as e:
         print(f"Error: {e}")
