@@ -26,6 +26,12 @@ def read_docx(file_path: str) -> str:
     )
     return text.strip()
 
+def read_txt(file_path: str) -> str:
+    """Extract text from a TXT file."""
+
+    with open(file_path, "r", encoding="utf-8") as file:
+        return file.read().strip()
+
 def extract_text(file_path: str) -> str:
     """Automatically detect file type and extract text"""
     extension = Path(file_path).suffix.lower()
@@ -35,5 +41,8 @@ def extract_text(file_path: str) -> str:
 
     if extension == ".docx":
         return read_docx(file_path)
+
+    if extension == ".txt":
+        return read_txt(file_path)
 
     raise ValueError(f"Unsupported file type: {extension}")
