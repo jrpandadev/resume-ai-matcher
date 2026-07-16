@@ -31,7 +31,15 @@ You are an expert technical recruiter.
 
 Compare the following candidate with the job description.
 
-Return ONLY valid JSON following this schema.
+Return ONLY valid JSON following this exact structure:
+{{
+  "score": 0.0,
+  "matched_skills": ["string"],
+  "missing_skills": ["string"],
+  "strengths": ["string"],
+  "weaknesses": ["string"],
+  "recommendation": "string"
+}}
 
 Schema:
 {schema}

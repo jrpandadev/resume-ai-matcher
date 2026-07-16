@@ -23,6 +23,9 @@ def extract_data(extract_text:str) -> Resume:
     }
     prompt=f"""
 You are an expert HR assistant.Extract the following information from the resume.Return ONLY valid JSON. Make sure your response is exactly valid JSON, without any explanations or surrounding text and all fields in the schema are extracted.If a field cannot be extracted, return empty string for string fields, empty list for list fields and 0 for numeric fields.
+CRITICAL: 
+- `education`, `projects`, and `certifications` MUST be lists of strings, NOT lists of objects.
+- Each object in the `experiences` list MUST be a dictionary matching the Experience schema, and MUST include a `skills_used` field which is a list of strings (or empty list if none).
 {schema} 
 Resume Text:
 {extract_text}
