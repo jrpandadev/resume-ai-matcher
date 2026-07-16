@@ -23,6 +23,57 @@ def normalize_skill(skill: str) -> str:
     """
     return skill.strip().lower()
 
+SKILL_ALIASES = {
+    "cloud platforms": {
+        "aws",
+        "azure",
+        "gcp",
+        "google cloud"
+    },
+    "database systems": {
+        "sql",
+        "mysql",
+        "postgresql",
+        "mongodb",
+        "redis",
+        "sqlite"
+    },
+    "version control systems": {
+        "git",
+        "github",
+        "gitlab",
+        "bitbucket"
+    },
+    "nosql": {
+        "mongodb",
+        "redis",
+        "cassandra"
+    },
+    "ci/cd": {
+        "github actions",
+        "jenkins",
+        "gitlab ci",
+        "azure devops"
+    },
+    "containerization": {
+        "docker",
+        "kubernetes"
+    }
+}
+
+def skill_matches(job_skill: str, resume_skills: set[str]) -> bool:
+    normalized = normalize_skill(job_skill)
+
+    if normalized in resume_skills:
+        return True
+
+    aliases = SKILL_ALIASES.get(normalized)
+
+    if aliases:
+        return any(alias in resume_skills for alias in aliases)
+
+    return False
+
 def load_job_description(file_path: str):
     with open(file_path, "r", encoding="utf-8") as file:
         if file_path.endswith(".json"):
@@ -92,15 +143,13 @@ Return:
     missing_skills = []
 
     for skill in job.required_skills:
-        normalized_skill = normalize_skill(skill)
-        if normalized_skill in resume_skills:
+        if skill_matches(skill, resume_skills):
             matched_skills.append(skill)
         else:
             missing_skills.append(skill)
 
     for skill in job.preferred_skills:
-        normalized_skill = normalize_skill(skill)
-        if normalized_skill in resume_skills:
+        if skill_matches(skill, resume_skills):
             matched_skills.append(skill)
         else:
             missing_skills.append(skill)
