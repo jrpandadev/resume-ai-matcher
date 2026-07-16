@@ -24,12 +24,16 @@ def main():
 
         job = load_job_description("data/job_description.json")
 
+        resume_files = [
+            file for file in resume_folder.iterdir()
+            if file.suffix.lower() in [".pdf", ".docx"]
+        ]
+
+        print(f"Found {len(resume_files)} resume(s).\n")
+
         results = []
 
-        for resume_file in resume_folder.iterdir():
-
-            if resume_file.suffix.lower() not in [".pdf", ".docx"]:
-                continue
+        for resume_file in resume_files:
 
             print(f"\nProcessing: {resume_file.name}")
 
