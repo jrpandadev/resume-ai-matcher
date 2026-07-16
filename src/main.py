@@ -12,14 +12,14 @@ def main():
     )
 
     parser.add_argument(
-        "resume",
-        help="Path to resume PDF or DOCX"
+        "resume_folder",
+        help="Folder containing PDF/DOCX resumes"
     )
 
     args = parser.parse_args()
 
     try:
-        resume_text = extract_text(args.resume)
+        resume_text = extract_text(args.resume_folder)
 
         resume = extract_data(resume_text)
 
