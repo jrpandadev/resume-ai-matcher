@@ -54,7 +54,18 @@ def save_report(resume, job: JobD, match_result: MatchResult) -> None:
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    with open(REPORT_FILE, "w", encoding="utf-8") as file:
+    candidate_name = resume.name or "Unknown"
+
+    safe_name = (
+        candidate_name
+        .replace(" ", "_")
+        .replace("/", "_")
+        .replace("\\", "_")
+    )
+
+    file_path = f"output/{safe_name}_report.json"
+
+    with open(file_path, "w", encoding="utf-8") as file:
         json.dump(report, file, indent=4)
 
 def save_rankings(results):
