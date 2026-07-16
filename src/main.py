@@ -4,7 +4,7 @@ from pathlib import Path
 from src.extract_text import extract_text
 from src.llm_extractor import extract_data, extract_job
 from src.comparator import compare_resume
-from src.report import generate_report, save_report
+from src.report import generate_report, save_report, save_rankings
 from src.scorer import calculate_score
 
 def main():
@@ -74,6 +74,8 @@ def main():
 
         for index, candidate in enumerate(results, start=1):
             print(f"{index}. {candidate['name']} - {candidate['score']:.1f}%")
+
+        save_rankings(results)
 
     except Exception as e:
         print(f"Error: {e}")

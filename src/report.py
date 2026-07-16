@@ -56,3 +56,14 @@ def save_report(resume, job: JobD, match_result: MatchResult) -> None:
 
     with open(REPORT_FILE, "w", encoding="utf-8") as file:
         json.dump(report, file, indent=4)
+
+def save_rankings(results):
+    os.makedirs("output", exist_ok=True)
+
+    with open("output/rankings.json", "w", encoding="utf-8") as file:
+        json.dump(
+            results,
+            file,
+            indent=4,
+            ensure_ascii=False
+        )
